@@ -1,0 +1,91 @@
+<link href="../polymer/polymer.html" rel="import">
+<link href="../font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="../font-awesome-animation/dist/font-awesome-animation.css" rel="stylesheet" />
+
+<!--
+The `fa-icon` element exposes font-awesome and font-awesome-animation functionality.
+
+    <fa-icon
+       icon="camera-retro lg"
+       effect="bounce"
+       effect-hover="parent"
+       ></fa-icon>
+
+icon and effect attributed can contain multiple 'fa' and 'faa' class names separated by a space
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="fa-icon">
+    <!--styles-->
+    <template>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: "fa-icon",
+
+        properties: {
+            /**
+             * Space separated list of 'fa' class names (ie: star 2x fw)
+             * 'fa-' prefix is not needed
+             */
+            icon: {
+                type: String,
+                observer: '_processIcon'
+            },
+            /**
+             * Space separated list of 'faa' class names (ie: spin slow)
+             * 'faa-' prefix is not needed
+             */
+            effect: String,
+            /**
+             * Determines what node should trigger animation on hover
+             * default is 'self', alternate option is 'parent' for 'this.parentNode'
+             */
+            effectHover: {
+                type: String,
+                value: 'self'
+            }
+        },
+        observers: [
+            '_processEffect(effect, effectHover)'
+        ],
+        ready: function(){
+            this.classList.add('fa');
+        }
+        ,
+        _processIcon: function(icon){
+            this._addMultipleClasses(icon, 'fa-');
+        },
+        _processEffect: function(effect, hover){
+            var node = this, animated = 'animated';
+            if(this.hasAttribute('effect-hover')) {
+                animated += '-hover';
+                if(hover.toLowerCase() == 'parent') {
+                    node = Polymer.dom(this).parentNode;
+                    node.classList.add('faa-parent');
+                }
+            }
+            node.classList.add(animated);
+            this._addMultipleClasses(this.effect, 'faa-');
+        },
+        _addMultipleClasses: function(classList, prefix){
+            var pre = prefix || '';
+            var list = this._validateClassList(classList);
+            //iterate through list and add class name with prefix to node
+            for(var i = 0; i < list.length; i++)
+                this.classList.add(pre + list[i]);
+        },
+        _validateClassList: function(classList){
+            if(classList === undefined) return [];
+            else if(typeof classList === "string")
+                return classList.split(' ');
+            else if(classList.constructor === Array)
+                return classList;
+            return [];
+        }
+
+    })
+</script>

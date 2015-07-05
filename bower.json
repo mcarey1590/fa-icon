@@ -1,0 +1,30 @@
+{
+  "name": "fa-icon",
+  "version": "1.0.0",
+  "authors": [
+    "Anonymous <anonymous@example.com>"
+  ],
+  "description": "An element providing easy implementation of font-awesome icons and animation",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "font-awesome",
+    "font-awesome-animation"
+  ],
+  "main": "fa-icon.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/mcarey1590/fa-icon/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "font-awesome": "font-awesome",
+    "font-awesome-animation": "font-awesome-animation"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
+  }
+}
